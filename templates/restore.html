@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Khôi phục · Kho văn bản{% endblock %}
+{% block content %}
+  <section class="page-heading compact">
+    <div>
+      <p class="eyebrow">Phục hồi dữ liệu</p>
+      <h1>Khôi phục bản sao lưu</h1>
+      <p class="subtle">Gói sao lưu sẽ thay toàn bộ văn bản và tệp đang có trong ứng dụng.</p>
+    </div>
+  </section>
+  <form class="panel document-form" action="{{ url_for('restore_page') }}" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="restore_token" value="{{ restore_token }}">
+    {% if error %}<p class="form-error" role="alert">{{ error }}</p>{% endif %}
+    {% if safety_backup %}<p class="form-success" role="status">Đã khôi phục dữ liệu. Bản sao của dữ liệu trước khi khôi phục: {{ safety_backup }}</p>{% endif %}
+    <label class="field"><span>Chọn gói sao lưu</span><input type="file" name="package" accept=".zip" required></label>
+    <label class="confirm-field"><input type="checkbox" name="confirm" value="yes" required><span>Tôi hiểu toàn bộ dữ liệu hiện tại sẽ được thay bằng dữ liệu trong gói sao lưu.</span></label>
+    <div class="form-actions"><button class="button primary" type="submit">Khôi phục dữ liệu</button></div>
+  </form>
+{% endblock %}

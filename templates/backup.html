@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Sao lưu · Kho văn bản{% endblock %}
+{% block content %}
+  <section class="page-heading compact">
+    <div>
+      <p class="eyebrow">Giữ an toàn dữ liệu</p>
+      <h1>Sao lưu</h1>
+      <p class="subtle">Lưu một gói gồm toàn bộ văn bản và tệp đính kèm.</p>
+    </div>
+  </section>
+  <form class="panel document-form" action="{{ url_for('backup_page') }}" method="post">
+    {% if error %}<p class="form-error" role="alert">{{ error }}</p>{% endif %}
+    {% if result %}<p class="form-success" role="status">Đã tạo bản sao lưu: {{ result }}</p>{% endif %}
+    <label class="field"><span>Thư mục lưu bản sao</span><input type="text" name="destination" value="{{ destination }}" required spellcheck="false"></label>
+    <p class="subtle helper-text">Nhập đường dẫn thư mục đã có trên máy, USB hoặc ổ ngoài. Bạn có thể sao chép đường dẫn từ thanh địa chỉ trong Trình quản lý tệp.</p>
+    <div class="form-actions"><button class="button primary" type="submit">Tạo bản sao lưu</button></div>
+  </form>
+{% endblock %}

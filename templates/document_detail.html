@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}{{ document.title or 'Chưa đặt tên' }} · Kho văn bản{% endblock %}
+{% block content %}
+  <section class="page-heading">
+    <div>
+      <a class="back-link" href="{{ url_for('index') }}">← Về danh sách</a>
+      <h1>{{ document.title or 'Chưa đặt tên' }}</h1>
+    </div>
+    <a class="button secondary" href="{{ url_for('edit_document', document_id=document.id) }}">Sửa thông tin</a>
+  </section>
+  <section class="panel detail-panel">
+    <dl class="detail-grid">
+      {% if document.number %}<div><dt>Số / ký hiệu</dt><dd>{{ document.number }}</dd></div>{% endif %}
+      {% if document.kind %}<div><dt>Loại văn bản</dt><dd>{{ document.kind }}</dd></div>{% endif %}
+      {% if document.issue_date %}<div><dt>Ngày ban hành</dt><dd>{{ document.issue_date[8:10] }}/{{ document.issue_date[5:7] }}/{{ document.issue_date[:4] }}</dd></div>{% endif %}
+      {% if document.issuer %}<div><dt>Cơ quan ban hành</dt><dd>{{ document.issuer }}</dd></div>{% endif %}
+      {% if document.summary %}<div class="full"><dt>Trích yếu / ghi chú</dt><dd class="summary">{{ document.summary }}</dd></div>{% endif %}
+    </dl>
+    <div class="attached-files">
+      <h2>Tệp đính kèm</h2>
+      {% if attachments %}
+        {% for attachment in attachments %}
+          <p><a href="{{ url_for('download_attachment', attachment_id=attachment.id) }}">{{ attachment.original_name }}</a> <span class="subtle">({{ attachment.byte_size }} byte)</span></p>
+        {% endfor %}
+      {% else %}
+        <p class="subtle">Văn bản này chưa có tệp đính kèm.</p>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

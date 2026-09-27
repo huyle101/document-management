@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+  <section class="page-heading">
+    <div>
+      <p class="eyebrow">Thư viện cá nhân</p>
+      <h1>Văn bản của bạn</h1>
+      <p class="subtle">Lưu và tìm lại các văn bản cùng tệp đính kèm.</p>
+    </div>
+    <a class="button primary" href="{{ url_for('new_document') }}">+ Thêm văn bản</a>
+  </section>
+
+  <form class="search-form" action="{{ url_for('index') }}" method="get" role="search">
+    <label class="visually-hidden" for="search-title">Tìm tên văn bản</label>
+    <input id="search-title" type="search" name="q" value="{{ query }}" placeholder="Tìm theo tên văn bản..." autocomplete="off">
+    <button class="button primary" type="submit">Tìm</button>
+    {% if query %}<a class="button secondary" href="{{ url_for('index') }}">Xóa tìm kiếm</a>{% endif %}
+  </form>
+
+  {% if documents %}
+    <p class="result-count">{{ documents|length }} văn bản{% if query %} phù hợp{% endif %}</p>
+    <div class="panel document-list">
+      {% for document in documents %}
+        <article class="document-row">
+          <div>
+            <strong><a class="document-title" href="{{ url_for('document_detail', document_id=document.id) }}">{{ document.title or 'Chưa đặt tên' }}</a></strong>
+            <div class="row-meta">
+              {% if document.number %}<span>{{ document.number }}</span>{% endif %}
+              {% if document.kind %}<span>{{ document.kind }}</span>{% endif %}
+              {% if document.issuer %}<span>{{ document.issuer }}</span>{% endif %}
+              {% if document.issue_date %}<span>{{ document.issue_date[8:10] }}/{{ document.issue_date[5:7] }}/{{ document.issue_date[:4] }}</span>{% endif %}
+              {% if document.attachment_count %}<span>{{ document.attachment_count }} tệp</span>{% endif %}
+            </div>
+          </div>
+          <a class="row-link" href="{{ url_for('edit_document', document_id=document.id) }}">Sửa</a>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <section class="panel empty-state">
+      <div class="empty-icon" aria-hidden="true">▤</div>
+      {% if query %}
+        <h2>Không tìm thấy văn bản</h2>
+        <p>Thử từ khóa khác hoặc xem toàn bộ danh sách.</p>
+        <a class="button secondary" href="{{ url_for('index') }}">Xem tất cả</a>
+      {% else %}
+        <h2>Chưa có văn bản nào</h2>
+        <p>Thêm văn bản đầu tiên để bắt đầu tạo kho của bạn.</p>
+        <a class="button primary" href="{{ url_for('new_document') }}">Thêm văn bản</a>
+      {% endif %}
+    </section>
+  {% endif %}
+{% endblock %}

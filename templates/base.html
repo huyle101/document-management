@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Kho văn bản{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="{{ url_for('index') }}">Kho văn bản</a>
+        <nav class="header-nav" aria-label="Điều hướng chính">
+          <a href="{{ url_for('index') }}">Văn bản</a>
+          <a href="{{ url_for('backup_page') }}">Sao lưu</a>
+          <a href="{{ url_for('restore_page') }}">Khôi phục</a>
+          {% if config.get('SHUTDOWN_CALLBACK') %}
+            <form action="{{ url_for('quit_app') }}" method="post">
+              <input type="hidden" name="quit_token" value="{{ config['RESTORE_TOKEN'] }}">
+              <button class="nav-button" type="submit">Thoát</button>
+            </form>
+          {% endif %}
+        </nav>
+      </div>
+    </header>
+    <main class="shell">{% block content %}{% endblock %}</main>
+  </body>
+</html>
