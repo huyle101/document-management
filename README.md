@@ -8,6 +8,6 @@ Nếu có tệp `dist/KhoVanBanMac`, chạy tệp đó để thử ngay. Nếu c
 
 ## Tạo bản chạy cho Windows 11
 
-Trên máy Windows có Python 3.12, mở PowerShell tại thư mục dự án và chạy `./build_windows.ps1`. Tệp chạy nằm ở `dist/KhoVanBan.exe`. Có thể sao chép tệp này sang máy Windows 11 khác; người dùng không cần cài Python để chạy. Dữ liệu được giữ trong `%LOCALAPPDATA%\KhoVanBan`, tách khỏi tệp chạy.
+Trên máy Windows có Python 3.14 hoặc 3.12, mở PowerShell tại thư mục dự án và chạy `powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\build_windows.ps1`. Tệp chạy nằm ở `dist/KhoVanBan.exe`. Có thể sao chép tệp này sang máy Windows 11 khác cùng kiến trúc; người dùng không cần cài Python để chạy. Dữ liệu được giữ trong `%LOCALAPPDATA%\KhoVanBan`, tách khỏi tệp chạy.
 
 Trước khi giao cho người dùng, ngắt mạng trên Windows 11 và thử: chạy lần đầu, thêm văn bản kèm nhiều tệp, tìm tên bằng tiếng Việt không dấu, sao lưu, khôi phục và mở lại tệp. Có thể sao lưu vào USB bằng cách nhập đường dẫn thư mục USB trên trang **Sao lưu**.
