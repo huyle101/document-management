@@ -2,8 +2,7 @@
 __pycache__/
 .mypy_cache/
 .ruff_cache/
-*.py[cod]
-dist/
+*.py[cod]build/
 build/
 *.spec
 .DS_Store
